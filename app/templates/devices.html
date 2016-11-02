@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+	<h2>Welcome, {{ current_user.id }}!</h2>
+	<hr>
+	<h5>The following devices are currently available:</h5>
+		{% for device in devices %}
+			{% if device.user == "Available" %}
+			<p><a href="/devices/{{ device.id }}">{{ device.name }}</a> - {{ device.type }}-{% if device.tag != "" %}{{ device.tag }}{% else %} Tag Unknown{% endif %}</p>
+			{% endif %}
+		{% endfor %}
+	<hr>
+	<h5>The following devices are currently reserved:</h5>
+		{% for device in devices %}
+			{% if device.user != "Available" %}
+			<p><a href="/devices/{{ device.id }}">{{ device.name }}</a> - {{ device.type }}-{{ device.tag }} ({{ device.user }})</p>
+			{% endif %}
+		{% endfor %}
+	<hr>
+	<form action="/devices/add">
+		<input type="submit" value="Add Device">
+	</form>
+	<form action="/logout">
+		<input type="submit" value="Logout">
+	</form>
+{% endblock %}

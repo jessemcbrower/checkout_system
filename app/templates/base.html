@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Boston Globe Asset Management</title>
+	
+	<link href="/static/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="/static/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<script>
+deleteDevice = function(device_id) {
+	$.ajax({
+	    type: "DELETE",
+	    url: "/devices/" + String(device_id),
+	    success: function() {
+	    	window.location = "/devices";
+	    }
+});
+}
+	</script>
+</head>
+<body>
+<style>
+.center {
+	float: none;
+	margin-left: auto;
+	margin-right: auto;
+}
+</style>
+<div class="span7 center">
+	<h1>Boston Globe Asset Management</h1>
+	<p>Menu: <a href="/">Home</a> <a href="/devices">Devices</a></p>
+	<hr>
+	{% block content %}{% endblock %}
+</div>
+</body>
+</html>

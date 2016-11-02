@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+	<h3>Add New Device</h3>
+	<form action="" method="post" name="new_device">
+	{{ form.hidden_tag() }}
+		<p>Device Type:</p>
+		<p>{{ form.type }}</p>
+		<p>{{ form.tag(placeholder="Asset Tag") }}</p>
+		<input type="submit" label="Add Device">
+			
+	</form>
+	<form action="/devices" method="get">
+		<input type="submit" value="Cancel">
+	</form>
+	<hr>
+{% endblock %}

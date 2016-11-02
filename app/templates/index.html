@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+	<h3>Please login or register a new account</h3>
+	<hr>
+	<h5>Please enter login credentials:</h5>
+	<form action='/login' method='POST'>
+	{{ form.hidden_tag() }}
+	    <p>{{ form.username(Placeholder="Username") }}</p>
+		<p>{{ form.password(Placeholder="Password") }}</p>
+		{% with messages = get_flashed_messages() %}
+			{% if messages %}
+			<ul class=flashes>
+				{% for message in messages %}
+					<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+			{% endif %}
+		{% endwith %}
+		<p>{{ form.login }}</p>
+    </form>
+	<form action="/register" method="get">
+		<input type="submit" value="Register">
+	</form>
+
+{% endblock %}

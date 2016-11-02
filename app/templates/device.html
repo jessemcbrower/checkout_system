@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+	<h3>{{ device.name }}</h3>
+	{% if device.type == "iPad" %}
+		<img src="/static/img/ipad.jpg" />
+	{% elif device.type == "Mac" %}
+		<img src="/static/img/mbp.jpg" />
+	{% elif device.type == "Dell" %}
+		<img src="/static/img/dell.jpg" />
+	{% elif device.type == "MiFi" %}
+		<img src="/static/img/mifi.jpg" />
+	{% endif %}
+	<p><b>Type:</b> {{ device.type }}</p>
+	<p><b>Asset Tag:</b> {{ device.tag }}</p>
+	<p><b>User:</b> {{ device.user }}</p>
+	{% if device.user != "Available" %}
+	<form action="" method="post"> 
+		<p><input type="submit" value="Check-In"> 
+	</form>
+<button onClick="deleteDevice({{ device.id }})">Delete</button></p>
+	{% elif device.user == "Available" %}
+	<form action="" method="post">
+		<p><input type="submit" value="Check-Out"></form>
+ <button onClick="deleteDevice({{ device.id }})">Delete</button></p>
+	{% endif %}
+	<hr>
+	<form action="/devices">
+		<input type="submit" value="Back">
+	</form>
+{% endblock %}

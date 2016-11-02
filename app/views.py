@@ -160,18 +160,22 @@ def get_device(device_id):
 
     elif request.method == 'POST':
         device = match_device(device_id)
-        # NEED TO CREATE NEW GMAIL ACCOUNT BEFORE THIS FEATURE WILL WORK AGAIN
-        msg = Message(device[0]['name'] + " has been reserved by " + str(current_user.id),
-                        sender="globe.loaners@gmail.com",
-                        recipients=["globe.loaners@gmail.com"])
+        # MOST COMMON REASON FOR THIS TO FAIL IS IS GOOGLE ACCOUNT ISN'T CONFIGURED
+        # TO ALLOW ACCESS FROM UNSAFE APPS; FEATURE IS FOUND IN THE ACCOUNT SETTINGS
+        cknmsg = Message(device[0]['name'] + " was reserved by " + str(current_user.id),
+                        sender="mcbrower.checkoutsystem@gmail.com",
+                        recipients=["mcbrower.checkoutsystem@gmail.com", "browerpowr@gmail.com"])
+        cktmsg = Message(device[0]['name'] + " was returned by " + device[0]['user'],
+                        sender="mcbrower.checkoutsystem@gmail.com",
+                        recipients=["mcbrower.checkoutsystem@gmail.com", "browerpowr@gmail.com"])
         if len(device) == 0:
             return redirect('/devices')
         elif device[0]['user'] == 'Available':
             device[0]['user'] = str(current_user.id)
-            # NEED TO CREATE NEW GMAIL ACCOUNT BEFORE THIS FEATURE WILL WORK AGAIN
-            mail.send(msg)
+            mail.send(cknmsg)
         else:
             device[0]['user'] = 'Available'
+            mail.send(cktmsg)
         dm.write_devices()
         return redirect('/devices')
         

@@ -145,8 +145,12 @@ def add_device():
             'user': "Available",
             'tag': request.form.get('tag')
         }
+        addmsg = Message("Loaner-" + str(id) + " was created by " + str(current_user.id),
+                        sender="mcbrower.checkoutsystem@gmail.com",
+                        recipients=["mcbrower.checkoutsystem@gmail.com", "browerpowr@gmail.com"])
         dm.devices.append(device)
         dm.write_devices()
+        mail.send(addmsg)
         return redirect('/devices')
 
 @app.route('/devices/<int:device_id>', methods=['GET', 'POST', 'DELETE'])
@@ -181,10 +185,14 @@ def get_device(device_id):
         
     elif request.method == 'DELETE':
         device = match_device(device_id)
+        dltmsg = Message(device[0]['name'] + " was deleted by " + str(current_user.id),
+                        sender="mcbrower.checkoutsystem@gmail.com",
+                        recipients=["mcbrower.checkoutsystem@gmail.com", "browerpowr@gmail.com"])
         if len(device) == 0:
             abort(404)
         dm.devices.remove(device[0])
         dm.write_devices()
+        mail.send(dltmsg)
         return 'OK'
 
 def match_device(device_id):

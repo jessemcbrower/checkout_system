@@ -14,23 +14,24 @@
     <p><b>Asset Tag:</b> {{ device.tag }}</p>
     <p><b>User:</b> {{ device.user }}</p>
     {% if device.user != "Available" %}
-        <form action="" method="post"> 
+        <form action="" method="post">
             <input type="hidden" name="action" value="checkin">
-            <p><input type="submit" value="Check-In"></p>
+            <p><button type="submit" class="btn btn-primary">Check-In</button></p>
         </form>
     {% elif device.user == "Available" %}
         <form action="" method="post">
             <input type="hidden" name="action" value="checkout">
-            <p><input type="submit" value="Check-Out"></p>
+            <p><button type="submit" class="btn btn-primary">Check-Out</button></p>
         </form>
     {% endif %}
-    
+
     <form action="/devices/{{ device.id }}/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete this device?');">
         <button type="submit" class="btn btn-danger">Delete</button>
     </form>
 
     <hr>
+
     <form action="/devices">
-        <input type="submit" value="Back">
+        <button type="submit" class="btn btn-secondary">Back</button>
     </form>
 {% endblock %}

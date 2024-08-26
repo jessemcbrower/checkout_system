@@ -1,28 +1,25 @@
 {% extends "base.html" %}
+
 {% block content %}
     <h3>Add New User</h3>
     <form action="/register" method="post" name="new_user">
         {{ form.hidden_tag() }}
         <div class="form-group">
-            {{ form.username.label }} {{ form.username(class="form-control", placeholder="Username") }}
+            {{ form.username.label }} 
+            {{ form.username(class="form-control", placeholder="Username") }}
         </div>
         <div class="form-group">
-            {{ form.password.label }} {{ form.password(class="form-control", placeholder="Password") }}
+            {{ form.password.label }} 
+            {{ form.password(class="form-control", placeholder="Password") }}
         </div>
         <div class="form-group">
-            {{ form.confirm.label }} {{ form.confirm(class="form-control", placeholder="Confirm Password") }}
+            {{ form.confirm_password.label }} 
+            {{ form.confirm_password(class="form-control", placeholder="Confirm Password") }}
         </div>
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <ul class="list-unstyled text-danger">
-                    {% for message in messages %}
-                        <li>{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}
-        <input type="submit" class="btn btn-primary" value="Add User">
+        
+        <input type="submit" class="btn btn-primary" value="Register">
     </form>
+    
     <form action="/" method="get">
         <input type="submit" class="btn btn-secondary" value="Cancel">
     </form>

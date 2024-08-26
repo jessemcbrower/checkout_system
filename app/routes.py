@@ -1,7 +1,7 @@
 from flask import render_template, abort, redirect, flash, request, get_flashed_messages
 from flask_login import login_required, login_user, logout_user, current_user
 from app import app, device_manager, user_manager, login_manager
-from .forms import DeviceInfo, LoginForm
+from .forms import DeviceInfo, LoginForm, RegistrationForm
 from app.models import User
 
 @login_manager.user_loader
@@ -19,22 +19,26 @@ def index():
     form = LoginForm()
     return render_template('index.html', form=form)
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
-    get_flashed_messages()  # Clears any existing messages
-    username = form.username.data
-    password = form.password.data
+    if form.validate_on_submit():  # Ensure the form is validated
+        username = form.username.data
+        password = form.password.data
 
-    for user in user_manager.users:
-        if user['username'] == username and user['password'] == password:
-            user_obj = User(username)
-            login_user(user_obj)
-            flash('Login successful!')
-            return redirect('/devices')
+        # Check if the user exists and the password matches
+        for user in user_manager.users:
+            if user['username'] == username and user['password'] == password:
+                user_obj = User(username)
+                login_user(user_obj)
+                flash('Login successful!', 'success')
+                return redirect('/devices')
 
-    flash('Invalid username or password')
-    return redirect('/')
+        # If the username or password is incorrect
+        flash('Invalid username or password', 'danger')
+
+    # If form validation fails or GET request is made, render the login page
+    return render_template('index.html', form=form)
 
 @app.route('/logout')
 @login_required
@@ -107,7 +111,7 @@ def delete_device(device_id):
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    form = LoginForm()
+    form = RegistrationForm()
     if request.method == 'POST':
         if form.validate_on_submit():
             username = form.username.data
@@ -116,15 +120,23 @@ def register():
             # Check if the username already exists
             for user in user_manager.users:
                 if user['username'] == username:
-                    flash('Username already exists')
-                    return redirect('/register')
+                    flash('Username already exists', 'danger')
+                    return render_template('register.html', form=form)
 
             # Add the new user
             new_user = {'username': username, 'password': password}
             user_manager.users.append(new_user)
             user_manager.write_users()
-            flash('User registered successfully!')
-            return redirect('/')
+
+            # Flash the success message and redirect immediately
+            flash('User registered successfully!', 'success')
+            return redirect('/login')  # Redirect to login after registration
+
+        # Handle validation errors
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash(f"{field}: {error}", 'danger')
+    
     return render_template('register.html', form=form)
 
 @app.route('/delete_account', methods=['POST'])

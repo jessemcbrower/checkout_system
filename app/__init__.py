@@ -1,6 +1,6 @@
 from flask import Flask
 
 app = Flask(__name__)
-app.config.from_object('config')
+app.config.from_object('app.config')
 
-from app import views
+from app import routes

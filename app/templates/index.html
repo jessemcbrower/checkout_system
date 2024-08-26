@@ -1,25 +1,28 @@
 {% extends "base.html" %}
 {% block content %}
-	<h3>Please login or register a new account</h3>
-	<hr>
-	<h5>Please enter login credentials:</h5>
-	<form action='/login' method='POST'>
-	{{ form.hidden_tag() }}
-	    <p>{{ form.username(Placeholder="Username") }}</p>
-		<p>{{ form.password(Placeholder="Password") }}</p>
-		{% with messages = get_flashed_messages() %}
-			{% if messages %}
-			<ul class=flashes>
-				{% for message in messages %}
-					<li>{{ message }}</li>
-				{% endfor %}
-			</ul>
-			{% endif %}
-		{% endwith %}
-		<p>{{ form.login }}</p>
+    <h3>Please login or register a new account</h3>
+    <hr>
+    <h5>Please enter login credentials:</h5>
+    <form action='/login' method='POST'>
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.username.label }} {{ form.username(class="form-control", placeholder="Username") }}
+        </div>
+        <div class="form-group">
+            {{ form.password.label }} {{ form.password(class="form-control", placeholder="Password") }}
+        </div>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="list-unstyled text-danger">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        <input type="submit" class="btn btn-primary" value="Login">
     </form>
-	<form action="/register" method="get">
-		<input type="submit" value="Register">
-	</form>
-
+    <form action="/register" method="get">
+        <input type="submit" class="btn btn-secondary" value="Register">
+    </form>
 {% endblock %}

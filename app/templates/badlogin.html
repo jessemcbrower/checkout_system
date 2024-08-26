@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
-	<h3>Bad login; please try again.</h3>
-	<hr>
-	<form action="/">
-		<input type="submit" value="Back">
-	</form>
+    <div class="alert alert-danger">
+        <h3>Bad login; please try again.</h3>
+    </div>
+    <form action="/">
+        <input type="submit" class="btn btn-secondary" value="Back">
+    </form>
 {% endblock %}

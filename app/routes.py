@@ -72,7 +72,7 @@ def add_device():
             return redirect('/devices')
     return render_template('add.html', form=form)
 
-@app.route('/devices/<int:device_id>', methods=['GET', 'POST', 'DELETE'])
+@app.route('/devices/<int:device_id>', methods=['GET', 'POST'])
 @login_required
 def device(device_id):
     device = device_manager.get_device(device_id)
@@ -83,30 +83,33 @@ def device(device_id):
         return render_template('device.html', device=device)
     
     if request.method == 'POST':
-        if not device:
-            abort(404)
-        if request.form.get('action') == 'checkin':  # Differentiate actions
+        action = request.form.get('action')
+        if action == 'checkin':
             updated_device = device_manager.add_or_update_device(device_id)
-        else:
+        elif action == 'checkout':
             updated_device = device_manager.add_or_update_device(device_id, str(current_user.id))
-        
+        else:
+            abort(400)  # Invalid action
         if not updated_device:
             abort(404)
         return redirect('/devices')
-        
-    if request.method == 'DELETE':
-        if not device:
-            abort(404)
+
+@app.route('/devices/<int:device_id>/delete', methods=['POST'])
+@login_required
+def delete_device(device_id):
+    device = device_manager.get_device(device_id)
+    if device:
         device_manager.delete_device(device_id)
-        return 'OK'
+        flash(f"Device {device['name']} deleted successfully.")
+    else:
+        flash("Device not found.")
+    return redirect('/devices')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = LoginForm()
     if request.method == 'POST':
-        print("Form submitted!")  # Check if form submission is happening
         if form.validate_on_submit():
-            print("Form validated successfully!")  # Check if form validation is working
             username = form.username.data
             password = form.password.data
 
@@ -122,8 +125,6 @@ def register():
             user_manager.write_users()
             flash('User registered successfully!')
             return redirect('/')
-        else:
-            print("Form validation failed!", form.errors)  # See why validation failed
     return render_template('register.html', form=form)
 
 @app.route('/delete_account', methods=['POST'])

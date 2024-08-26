@@ -4,16 +4,23 @@
     <h3>Add New Device</h3>
     <form action="" method="post" name="new_device">
         {{ form.hidden_tag() }}
-        <p>Device Name:</p>
-        {{ form.name.label }} {{ form.name() }}
-        <p>Device Type:</p>
-        {{ form.type.label }} {{ form.type() }}
-        <p>Asset Tag:</p>
-        {{ form.tag.label }} {{ form.tag() }}
-        <br>
-        <input type="submit" value="Add Device">
-    </form>
-    <form action="/devices" method="get">
-        <input type="submit" value="Cancel">
+        
+        <div class="form-group">
+            <label for="device-name">{{ form.name.label }}</label>
+            {{ form.name(class="form-control", id="device-name") }}
+        </div>
+        
+        <div class="form-group">
+            <label for="device-type">{{ form.type.label }}</label>
+            {{ form.type(class="form-control", id="device-type") }}
+        </div>
+        
+        <div class="form-group">
+            <label for="asset-tag">{{ form.tag.label }}</label>
+            {{ form.tag(class="form-control", id="asset-tag") }}
+        </div>
+        
+        <input type="submit" class="btn btn-primary" value="Add Device">
+        <a href="/devices" class="btn btn-secondary">Cancel</a>
     </form>
 {% endblock %}

@@ -23,21 +23,17 @@ class DeviceManager:
     def add_or_update_device(self, device_id, user_id=None):
         device = self.get_device(device_id)
         if device:
-            if user_id:  # If a user is provided, check out the device
+            if user_id:  # Check out the device if user_id is provided
                 device['user'] = user_id
-            else:  # Otherwise, check in the device
+            else:  # Check in the device if no user_id
                 device['user'] = 'Available'
             self.write_devices()
             return device
         return None
 
     def delete_device(self, device_id):
-        device = self.get_device(device_id)
-        if device:
-            self.devices.remove(device)
-            self.write_devices()
-            return device
-        return None
+        self.devices = [device for device in self.devices if device['id'] != device_id]
+        self.write_devices()
 
 class User(UserMixin):
     def __init__(self, username):

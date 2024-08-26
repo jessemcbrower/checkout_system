@@ -19,6 +19,9 @@
 	<form action="/devices/add">
 		<input type="submit" value="Add Device">
 	</form>
+	<form action="/delete_account" method="post" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
+	    <input type="submit" value="Delete Account">
+	</form>
 	<form action="/logout">
 		<input type="submit" value="Logout">
 	</form>

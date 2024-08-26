@@ -1,40 +1,62 @@
 import json
-from flask_login import UserMixin, LoginManager
-from flask_mail import Mail
-from app import app
-from app.config import USERS
+from flask_login import UserMixin
+from app.config import Config
 
-# User class for Flask-Login
+class DeviceManager:
+    def __init__(self):
+        self.devices = self.read_devices()
+
+    def read_devices(self):
+        with open(Config.INVENTORY) as file:
+            return json.load(file)
+
+    def write_devices(self):
+        with open(Config.INVENTORY, 'w') as file:
+            json.dump(self.devices, file)
+
+    def get_device(self, device_id):
+        for device in self.devices:
+            if device['id'] == device_id:
+                return device
+        return None
+
+    def add_or_update_device(self, device_id, user_id=None):
+        device = self.get_device(device_id)
+        if device:
+            if user_id:  # If a user is provided, check out the device
+                device['user'] = user_id
+            else:  # Otherwise, check in the device
+                device['user'] = 'Available'
+            self.write_devices()
+            return device
+        return None
+
+    def delete_device(self, device_id):
+        device = self.get_device(device_id)
+        if device:
+            self.devices.remove(device)
+            self.write_devices()
+            return device
+        return None
+
 class User(UserMixin):
     def __init__(self, username):
         self.id = username
 
-# UserManager class for handling user data
 class UserManager:
-
     def __init__(self):
-        self.users = None
-        self.read_users()
+        self.users = self.read_users()
 
     def read_users(self):
-        with open(USERS) as users:
-            self.users = json.load(users)
+        with open(Config.USERS) as file:
+            return json.load(file)
 
     def write_users(self):
-        with open(USERS, 'w') as outfile:
-            json.dump(self.users, outfile)
+        with open(Config.USERS, 'w') as file:
+            json.dump(self.users, file)
 
-# Instantiate the UserManager
-um = UserManager()
-
-# Initialize Flask-Login
-login_manager = LoginManager()
-login_manager.init_app(app)
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User(user_id)
-
-# Initialize Flask-Mail
-mail = Mail()
-mail.init_app(app)
+    def get_user(self, user_id):
+        for user in self.users:
+            if user['username'] == user_id:
+                return User(user['username'])
+        return None

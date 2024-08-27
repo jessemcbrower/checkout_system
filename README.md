@@ -4,7 +4,7 @@ This application helps you manage and track shared inventory items like laptops,
 
 ## Project History
 
-This project started as a practical way for me to learn how to code. Back in 2015, I teamed up with an old friend, and we spent a lot of time digging up code snippets online while writing plenty of our own. We wanted to replace the old, handwritten loaner device tracking system at a company I used to work for. But, as things go, life happened, and I left the company before we could finish it. The project ended up sitting on the back burner for over eight years.
+This project started as a practical way for me to learn how to code. Back in 2015, I teamed up with an old friend, and we spent a lot of time digging up code snippets online while writing plenty of our own. We wanted to replace the old, handwritten loaner device tracking system at a company I used to work for. But, I left the company before we could finish it and the project ended up sitting on the back burner for over eight years.
 
 Recently, I decided it was time to dust it off and give it another shot. I’m hoping to start building some practical Flask apps for my current company to help manage backend tasks and API calls, so I figured this would be a good way to refresh my memory. Plus, I’m also testing the limits of OpenAI and ChatGPT’s coding capabilities. While you only get out what you put in, it’s been really good practice for me to piece chunks of code together one function at a time. The best part is, I don’t have to troubleshoot as much as before, and I almost never run into syntax typos, so it’s saving me a ton of time overall. What started as a simple way to learn has turned into a chance to revisit an old project, tidy it up, and see how far I’ve come.
 

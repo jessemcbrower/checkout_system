@@ -4,7 +4,7 @@ This application helps you manage and track shared inventory items like laptops,
 
 ## Project History
 
-This project began as a practical way for me to learn coding. I collaborated with an old friend to find code snippets around the internet, and together we wrote much of the code ourselves. The original goal was to replace the handwritten loaner device tracking system at a company where I used to work. Unfortunately, I left that company before the project was completed, and it sat on the back burner for over eight years. 
+This project began as a practical way for me to learn coding. In 2015 I began collaborating with an old friend to find code snippets around the internet, and together we wrote much of the code ourselves. The original goal was to replace the handwritten loaner device tracking system at a company where I used to work. Unfortunately, I left that company before the project was completed, and it sat on the back burner for over eight years. 
 
 Recently, I decided to pick it back up, leveraging OpenAI and ChatGPT to help refactor the code from my first real full-stack project. This approach has allowed me to learn at a much faster pace than when I was pair-programming and Googling on my own.
 

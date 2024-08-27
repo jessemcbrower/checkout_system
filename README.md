@@ -65,11 +65,6 @@ To get started with the Checkout System Asset Tracker, follow these steps:
 
 **Note:** The email account above was originally set up for notifications but may no longer be functional. Email functionality will be revisited in future updates. SMTP is not longer part of this project, for now.
 
-## To-Do List
-
-1. Implement user role permissions
-2. Create an admin template for managing user accounts
-
 ## Future Goals
 
 1. **Enable device checkouts by username:** Allow users to check out devices and associate them with their account.

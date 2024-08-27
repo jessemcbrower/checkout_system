@@ -100,9 +100,6 @@
     <!-- Add New Device Button -->
     <form action="{{ url_for('add_device') }}" method="POST">
         <div class="d-flex align-items-center mb-3">
-            <input type="text" name="device_name" placeholder="Device Name" class="form-control me-2" required>
-            <input type="text" name="device_type" placeholder="Device Type" class="form-control me-2" required>
-            <input type="text" name="asset_tag" placeholder="Asset Tag" class="form-control me-2" required>
             <button type="submit" class="btn btn-primary">Add New Device</button>
         </div>
     </form>

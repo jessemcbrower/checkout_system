@@ -51,15 +51,15 @@ To get started with the Checkout System Asset Tracker, follow these steps:
 
 **Default Admin Account:**
 
+- **Username:** `admin`
+- **Password:** `admin`
+
+**Alternative Admin Account:**
+
 - **Username/Email:** `mcbrower.checkoutsystem@gmail.com`
 - **Password:** `Checkmate`
 
 **Note:** The email account above was originally set up for notifications but may no longer be functional. Email functionality will be revisited in future updates.
-
-**Alternative Admin Account:**
-
-- **Username:** `admin`
-- **Password:** `admin`
 
 ## To-Do List
 

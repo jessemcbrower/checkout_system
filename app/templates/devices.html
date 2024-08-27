@@ -22,12 +22,14 @@
     {% endfor %}
     <hr>
     
-    <!-- Add Device Button -->
-    <form action="/devices/add">
-        <button type="submit" class="btn btn-success">
-            Add Device
+    <!-- Admin Panel Button (only visible to admins) -->
+    {% if current_user.role == 'admin' %}
+    <form action="{{ url_for('admin_panel') }}" method="get">
+        <button type="submit" class="btn btn-primary">
+            Go to Admin Panel
         </button>
     </form>
+    {% endif %}
 
     <!-- Delete Account Button -->
     <form action="/delete_account" method="post" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">

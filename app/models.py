@@ -30,8 +30,9 @@ class DeviceManager:
         self.write_devices()
 
 class User(UserMixin):
-    def __init__(self, username):
+    def __init__(self, username, role='user'):
         self.id = username
+        self.role = role
 
 class UserManager:
     def __init__(self):
@@ -42,9 +43,11 @@ class UserManager:
             return json.load(file)
 
     def write_users(self):
+        print("Writing users to file...")
         with open(Config.USERS, 'w') as file:
             json.dump(self.users, file, indent=4)
+        print("Users have been written successfully.")
 
     def get_user(self, user_id):
         user = next((user for user in self.users if user['username'] == user_id), None)
-        return User(user['username']) if user else None
+        return User(user['username'], user.get('role', 'user')) if user else None

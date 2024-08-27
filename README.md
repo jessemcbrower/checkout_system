@@ -58,12 +58,12 @@ To get started with the Checkout System Asset Tracker, follow these steps:
 - **Username:** `admin`
 - **Password:** `admin`
 
-**Alternative Admin Account:**
+**Gmail Account For SMTP:**
 
 - **Username/Email:** `mcbrower.checkoutsystem@gmail.com`
 - **Password:** `Checkmate`
 
-**Note:** The email account above was originally set up for notifications but may no longer be functional. Email functionality will be revisited in future updates.
+**Note:** The email account above was originally set up for notifications but may no longer be functional. Email functionality will be revisited in future updates. SMTP is not longer part of this project, for now.
 
 ## To-Do List
 
